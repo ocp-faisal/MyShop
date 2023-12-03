@@ -1,28 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shop Details</title>
-    <!-- Include Shopify App Bridge script -->
-    <script src="https://unpkg.com/@shopify/app-bridge@1"></script>
-</head>
-<body>
-    <div id="app"></div>
+@extends('shopify-app::layouts.default')
 
-    <script>
-        var app = AppBridge.createApp({
-            apiKey: '7181dbcff577092695775c247235a9f5',
-            shopOrigin: '{{ request()->get('shop') }}',
-        });
+@section('content')
+    <div>
+        <h4>Shop Name: <b>{{ $shopName ?? Auth::user()->name }}</b></h4>
+    </div>
+    <div>
+        <h4>Shop ID: <b>{{ Auth::user()->id }}</b></h4>
+    </div>
 
-        // Use app to render the shop details
-        app.render('ShopifyAdmin.Details', {
-            data: {
-                shopName: '{{ $shopName }}',
-                shopId: '{{ $shopId }}',
-            },
-        });
-    </script>
-</body>
-</html>
+    <!-- Additional Shopify App Bridge script -->
+    @if(isset($shopDomain))
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const shopName = '{{ $shopName ?? Auth::user()->name }}';
+
+                // Use the Shopify App Bridge to set the shop name
+                if (window.ShopifyApp) {
+                    window.ShopifyApp.Bar.initialize({ title: `Shop Name: ${shopName}` });
+                }
+            });
+        </script>
+    @endif
+@endsection
+

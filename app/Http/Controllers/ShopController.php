@@ -11,17 +11,19 @@ class ShopController extends Controller
     {
         $shop = $request->user();
         $shop = $shop->api()->rest('GET', '/admin/api/2023-04/shop.json');
-        //$products = $shop->api()->rest('GET', '/admin/api/2021-04/products.json');
 
-        // echo "<pre>";
-        // print_r($products['body']['products']);
-        echo "</pre>";
-        print_r($shop['body']['shop']['name']). "\n";
-        echo "</pre>";
-        print_r($shop['body']['shop']['id']);
+            $shopName = $shop['body']['shop']['name'];
+            $shopId = $shop['body']['shop']['id'];
+        return response()->json([
+            'shopName' => $shopName,
+            'shopId' => $shopId,
+        ]);
+
+
+        
     }
 
-
+    
     public function index()
     {
         $shop = Auth::user();
@@ -29,4 +31,5 @@ class ShopController extends Controller
         $products = $data['body']['products'];
         return view('welcome', compact('products'));
     }
+
 }
