@@ -32,4 +32,10 @@ Route::get('/', function () {
 
 
 
-Route::get('/shop',[ShopController::class, 'getDetails'])->middleware(['verify.shopify'])->name('shop');
+Route::get('/shop',[ShopController::class, 'getDetails']
+)->middleware(['verify.shopify'])->name('shop');
+
+
+
+Route::get('/products',[ShopController::class, 'index']
+)->middleware(['verify.shopify'])->name('products');
