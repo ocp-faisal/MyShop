@@ -16,9 +16,11 @@ class ShopController extends Controller
         // echo "<pre>";
         // print_r($products['body']['products']);
         echo "</pre>";
-        print_r($shop['body']['shop']['name']);
+        print_r($shop['body']['shop']['name']). "\n";
+        echo "</pre>";
         print_r($shop['body']['shop']['id']);
     }
+
 
     public function index()
     {
